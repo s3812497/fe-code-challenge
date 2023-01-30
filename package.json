@@ -2,19 +2,11 @@
   "name": "code-challenge",
   "version": "0.0.1",
   "description": "Piktochart FE challenge",
-  "main": "index.js",
+  "type": "module",
   "scripts": {
-    "start": "nodemon --watch './**/*.ts' --exec 'ts-node' ./src/server.ts"
-  },
-  "author": "Piktochart",
-  "license": "ISC",
-  "dependencies": {
-    "bootstrap": "^4.6.1",
-    "express": "^4.17.1",
-    "jquery": "^2.2.3",
-    "junk": "^3.1.0",
-    "multer": "^1.4.3",
-    "nodemon": "^1.9.1"
+    "dev": "nodemon --watch './**/*.ts' --exec 'ts-node --esm' ./server.ts",
+    "build": "vite build --outDir dist",
+    "preview": "nodemon --watch './**/*.ts' --exec 'NODE_ENV=production ts-node --esm' ./server.ts"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",
@@ -22,6 +14,15 @@
     "@types/multer": "^1.4.7",
     "@types/node": "^16.11.7",
     "ts-node": "^10.4.0",
-    "typescript": "^4.4.4"
+    "typescript": "^4.9.4",
+    "vite": "^4.0.4",
+    "@vitejs/plugin-vue2": "^2.2.0"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "junk": "^3.1.0",
+    "multer": "^1.4.3",
+    "nodemon": "^1.9.1",
+    "vue": "^2.7.14"
   }
 }
