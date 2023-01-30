@@ -38,7 +38,9 @@ async function createServer() {
 
   const uploadMiddleware = multer({ storage, fileFilter }).single("upload");
 
-  let vite: ViteDevServer
+  // Integrating Vite with Express
+  // https://vitejs.dev/guide/ssr.html
+  let vite: ViteDevServer;
   if (!production) {
     // Create Vite server in middleware mode and configure the app type as
     // 'custom', disabling Vite's own HTML serving logic so parent server
@@ -87,7 +89,7 @@ async function createServer() {
     app.use("/", express.static(__dirname + "/dist"));
   }
 
-  app.get("*", async (req, res) => {
+  app.get("/", async (req, res) => {
     const url = req.originalUrl;
 
     try {
@@ -110,8 +112,9 @@ async function createServer() {
     }
   });
 
-  app.listen(8000, () => {
-    console.log("Server started. Listening to port 8000");
+  const port = 5173;
+  app.listen(port, () => {
+    console.log(`Server started. Listening to port ${port}`);
   });
 }
 
