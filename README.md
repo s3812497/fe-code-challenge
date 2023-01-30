@@ -62,12 +62,12 @@ This are the things we evaluate:
 
 These are the features we expect the editor to has:
 
-- Use native HTML element `<div>`, not `<canvas>`.
-- User must see the existing images from folder `images` to the images list.
-- User can _upload image_ to folder `images` and the list must update accordingly.
-- User can _add image / text_ from the sidebar to the canvas.
-- User can _move and delete the image / text_ inside the canvas.
-- The created objects on canvas can be saved and repopulated even if we refresh the browser!
+- [x] Use native HTML element `<div>`, not `<canvas>`.
+- [x] User must see the existing images from folder `images` to the images list.
+- [] User can _upload image_ to folder `images` and the list must update accordingly.
+- [] User can _add image / text_ from the sidebar to the canvas.
+- [] User can _move and delete the image / text_ inside the canvas.
+- [] The created objects on canvas can be saved and repopulated even if we refresh the browser!
 
 ### Notes
 

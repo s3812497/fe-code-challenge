@@ -5,7 +5,7 @@
   "description": "Piktochart FE challenge",
   "type": "module",
   "scripts": {
-    "dev": "nodemon --watch './**/*.ts' --exec 'ts-node --esm' ./server.ts",
+    "dev": "nodemon --watch './server.ts' --exec 'ts-node --esm' ./server.ts",
     "build": "vite build --outDir dist",
     "prod": "NODE_ENV=production ts-node --esm ./server.ts"
   },

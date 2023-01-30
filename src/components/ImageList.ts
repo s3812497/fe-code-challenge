@@ -1,16 +1,17 @@
 import Vue from "vue";
+import "./Image";
 
 export const component = Vue.component("pc-image-list", {
   props: {
     images: {
-      type: []
+      type: [],
     },
   },
   template: `
     <div class="image">
       <ul>
         <li v-for="image in images">
-          <img :src="image" async loading="lazy" />
+          <pc-img :src="image"></pc-img>
         </li>
       </ul>
     </div>
