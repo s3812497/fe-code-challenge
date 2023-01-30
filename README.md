@@ -18,10 +18,10 @@ To set up the environment dependencies
 $ npm install
 ```
 
-To run the node server
+To run in development mode
 
 ```
-$ npm run start
+$ npm run dev
 ```
 
 Server is listening to port `8000`
@@ -64,9 +64,9 @@ These are the features we expect the editor to has:
 
 - Use native HTML element `<div>`, not `<canvas>`.
 - User must see the existing images from folder `images` to the images list.
-- User can *upload image* to folder `images` and the list must update accordingly.
-- User can *add image / text* from the sidebar to the canvas.
-- User can *move and delete the image / text* inside the canvas.
+- User can _upload image_ to folder `images` and the list must update accordingly.
+- User can _add image / text_ from the sidebar to the canvas.
+- User can _move and delete the image / text_ inside the canvas.
 - The created objects on canvas can be saved and repopulated even if we refresh the browser!
 
 ### Notes
@@ -84,6 +84,16 @@ We leave it up to you, but you don't really need to get creative on this, we sug
 
 This is a work in progress, it is not part of the challenge itself but if you feel that something is missing or not clear enough, please let us know, we really appreciate it.
 
------
+---
 
 The most important thing, have fun!
+
+## Production
+
+To build and run in production
+
+```
+$ npm run build && npm run prod
+```
+
+Server is listening to port `8000`

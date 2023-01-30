@@ -2,11 +2,11 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import express from "express";
-import { createServer as createViteServer } from "vite";
+import { createServer as createViteServer, ViteDevServer } from "vite";
 import multer from "multer";
 import { not as isNotJunk } from "junk";
 
-const isProduction = process.env.NODE_ENV === "production";
+const production = process.env.NODE_ENV === "production";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -38,16 +38,19 @@ async function createServer() {
 
   const uploadMiddleware = multer({ storage, fileFilter }).single("upload");
 
-  // Create Vite server in middleware mode and configure the app type as
-  // 'custom', disabling Vite's own HTML serving logic so parent server
-  // can take control
-  const vite = await createViteServer({
-    server: { middlewareMode: true },
-    appType: "custom",
-  });
+  let vite: ViteDevServer
+  if (!production) {
+    // Create Vite server in middleware mode and configure the app type as
+    // 'custom', disabling Vite's own HTML serving logic so parent server
+    // can take control
+    vite = await createViteServer({
+      server: { middlewareMode: true },
+      appType: "custom",
+    });
 
-  // use vite's connect instance as middleware
-  app.use(vite.middlewares);
+    // use vite's connect instance as middleware
+    app.use(vite.middlewares);
+  }
 
   app.use(express.static("./images"));
 
@@ -80,8 +83,8 @@ async function createServer() {
     res.json(files);
   });
 
-  if (isProduction) {
-    app.use('/assets', express.static(__dirname + '/dist/assets'))
+  if (production) {
+    app.use("/", express.static(__dirname + "/dist"));
   }
 
   app.get("*", async (req, res) => {
@@ -89,16 +92,15 @@ async function createServer() {
 
     try {
       let html = fs.readFileSync(
-        path.resolve(
-          __dirname,
-          isProduction ? "dist/index.html" : "index.html"
-        ),
+        path.resolve(__dirname, production ? "dist/index.html" : "index.html"),
         "utf-8"
       );
 
-      // Apply Vite HTML transforms. This injects the Vite HMR client, and
-      // also applies HTML transforms from Vite plugins
-      html = await vite.transformIndexHtml(url, html);
+      if (!production) {
+        // Apply Vite HTML transforms. This injects the Vite HMR client, and
+        // also applies HTML transforms from Vite plugins
+        html = await vite.transformIndexHtml(url, html);
+      }
 
       res.status(200).set({ "Content-Type": "text/html" }).end(html);
     } catch (e) {
