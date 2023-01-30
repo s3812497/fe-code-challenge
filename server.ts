@@ -40,13 +40,20 @@ async function createServer() {
 
   // Integrating Vite with Express
   // https://vitejs.dev/guide/ssr.html
+  // https://www.peterweightman.com/posts/2021-05-16-vite-express-server/
   let vite: ViteDevServer;
   if (!production) {
     // Create Vite server in middleware mode and configure the app type as
     // 'custom', disabling Vite's own HTML serving logic so parent server
     // can take control
     vite = await createViteServer({
-      server: { middlewareMode: true },
+      server: {
+        middlewareMode: true,
+        watch: {
+          usePolling: true,
+          interval: 100,
+        },
+      },
       appType: "custom",
     });
 
