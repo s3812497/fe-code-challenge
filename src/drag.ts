@@ -20,10 +20,24 @@ export function dragoverHandler(event: DragEvent) {
 export function dropHandler(event: DragEvent) {
   event.preventDefault();
   // Get the id of the target and add the moved element to the target's DOM
-  const data = event.dataTransfer!.getData("application/my-app");
+  const draggableElementId = event.dataTransfer!.getData("application/my-app");
 
-  (event.target as HTMLElement).appendChild(
-    document.getElementById(data) as HTMLElement
-  );
+  const dropTarget = event.target as HTMLElement;
+
+  const draggableElement = document.getElementById(
+    draggableElementId
+  ) as HTMLElement;
+
+  if (!dropTarget.querySelector(`#${draggableElementId}`)) {
+    dropTarget.appendChild(draggableElement);
+  }
+
+  const top = event.clientY - draggableElement.offsetHeight / 2;
+  const left = event.clientX - draggableElement.offsetWidth / 2;
+
+  draggableElement.style.position = "fixed";
+  draggableElement.style.top = top + "px";
+  draggableElement.style.left = left + "px";
+
   console.log("user placed an image");
 }
